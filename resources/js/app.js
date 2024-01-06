@@ -1,10 +1,15 @@
 import axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import {createApp, h} from 'vue';
+import {createApp, h, provide} from 'vue';
 import App from "./App.vue";
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
+import { ApolloClients } from '@vue/apollo-composable'
 import { createApolloProvider } from '@vue/apollo-option'
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -26,16 +31,28 @@ const cache = new InMemoryCache()
 
 const apolloClient = new ApolloClient({
     cache,
-    uri: import.meta.env.GRAPHQL_ENDPOINT,
+    uri: import.meta.env.VITE_GRAPHQL_URL,
 })
 
 const apolloProvider = createApolloProvider({
     defaultClient: apolloClient,
 })
 
+const vuetify = createVuetify({
+    components,
+    directives,
+})
+
 const app = createApp({
+    setup () {
+        provide(ApolloClients, {
+            default: apolloClient,
+        })
+    },
     render: () => h(App),
 });
 
+app.use(vuetify)
 app.mount('#app');
 app.use(apolloProvider)
+
