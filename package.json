@@ -12,9 +12,13 @@
         "laravel-vite-plugin": "^0.7.2",
         "sass": "^1.56.1",
         "vite": "^4.0.0",
-        "vue": "^3.2.37"
+        "vue": "^3.4.5"
     },
     "dependencies": {
+        "@apollo/client": "^3.8.8",
+        "@vue/apollo-components": "^4.0.0-beta.12",
+        "@vue/apollo-option": "^4.0.0-beta.12",
+        "graphql-tag": "^2.12.6",
         "laravel-echo": "^1.15.0",
         "pusher-js": "^8.0.2"
     }
